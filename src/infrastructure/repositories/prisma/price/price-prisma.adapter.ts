@@ -3,7 +3,9 @@ import { PriceRepository } from "src/domain/repositories/price.repository";
 import { CreatePriceInputDto } from "src/shared/dtos/price/create-price-input.dto";
 import { PrismaService } from "../.config/prisma.service";
 import { Currency } from "src/shared/constantes/currency.enum";
+import { Injectable } from "@nestjs/common";
 
+@Injectable()
 export class PricePrismaAdapter implements PriceRepository {
     constructor(private readonly prismaService: PrismaService) {}
 
@@ -21,7 +23,13 @@ export class PricePrismaAdapter implements PriceRepository {
     }
 
     async create(data: CreatePriceInputDto): Promise<Price> {
-        throw new Error("Method not implemented.");
+        const prismaPrice = await this.prismaService.price.create({
+            data
+        });
+        return {
+            ...prismaPrice,
+            currency: prismaPrice.currency as Currency
+        }
     }
     
 }

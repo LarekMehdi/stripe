@@ -1,5 +1,5 @@
 import { Type } from "class-transformer";
-import { IsNotEmpty, IsNumber, IsOptional } from "class-validator";
+import { IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
 import { Currency } from "src/shared/constantes/currency.enum";
 
 export class CreatePriceInputDto {
@@ -15,10 +15,13 @@ export class CreatePriceInputDto {
     @IsNotEmpty()
     @IsNumber()
     @Type(() => Number)
+    productId: number;
+
+    @IsNotEmpty()
+    @IsString()
     externalProductId: string;
 
     @IsOptional()
-    @IsNumber()
-    @Type(() => Number)
+    @IsString()
     externalPriceId: string | null;
 }
