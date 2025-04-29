@@ -56,8 +56,8 @@ export class StripeService implements PaymentService {
     async checkout(checkoutData: ExtendedCheckoutSessionInputDto): Promise<any> {
         return this.stripe?.checkout.sessions.create({
             ...checkoutData,
-            success_url: 'http://localhost:3000/success',
-            cancel_url: 'http://localhost:3000/cancel',
+            success_url: 'http://localhost:3000/payment/success',
+            cancel_url: 'http://localhost:3000/payment/cancel',
         });
     }
 

@@ -22,7 +22,8 @@ export class PaymentCheckoutUseCase {
         if (!product.externalPriceId) throw new PreconditionFailedException(`No priceId found for product id ${productId}`);
 
         const checkoutData: ExtendedCheckoutSessionInputDto = this.__getExtendedInput(product, data);
-        await this.paymentService.checkout(checkoutData);
+        const checkoutResponse = await this.paymentService.checkout(checkoutData);
+        console.log('response => ', checkoutResponse);
         product.quantity = product.quantity - data.quantity;
     
         return await this.productRepository.update(product, productId);
