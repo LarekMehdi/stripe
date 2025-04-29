@@ -3,6 +3,7 @@ import { CreatePriceUseCase } from "src/application/use-cases/price/create-price
 import { PriceFindByIdUseCase } from "src/application/use-cases/price/price-find-by-id.usecase";
 import { Price } from "src/domain/entities/price/price.entity";
 import { CreatePriceInputDto } from "src/shared/dtos/price/create-price-input.dto";
+import { PriceOutputDto } from "src/shared/dtos/price/price-output.dto";
 
 @Controller('price')
 export class PriceController {
@@ -13,7 +14,7 @@ export class PriceController {
     /** FIND **/
 
     @Get(':id')
-    async findById(@Param('id', ParseIntPipe) id: number): Promise<Price|null> {
+    async findById(@Param('id', ParseIntPipe) id: number): Promise<PriceOutputDto|null> {
         return await this.priceFindByIdUC.execute(id);
     }
 

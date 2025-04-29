@@ -37,6 +37,7 @@ export class CreateProductUseCase {
         priceData.externalPriceId = price.id;
 
         // création du Price en base
+        priceData.amount = (priceData.amount / 100);
         await this.priceRepository.create(priceData);
 
         // maj du Product en base avec le priceId
@@ -48,7 +49,7 @@ export class CreateProductUseCase {
 
     private __mapExtendedInputToPriceInput(data: CreateProductWithPriceInputDto, productId: number): CreatePriceInputDto {
         const priceInput: CreatePriceInputDto = {
-            amount: data.amount,
+            amount: data.amount * 100,
             currency: data.currency,
             productId: productId,
             externalProductId: data.externalProductId!,

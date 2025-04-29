@@ -21,6 +21,15 @@ export class StripeService implements PaymentService {
         }
     }
 
+    /** FIND **/
+
+    async findPriceById(id: string): Promise<StripePriceOutputDto|undefined> {
+        const price = await this.stripe?.prices.retrieve(id);
+
+        if (!price) return undefined;
+        return PriceMapper.mapPriceResponseToPriceOutput(price);
+    }
+
     /** CREATE **/
 
     async createProduct(createData: CreateProductInputDto): Promise<StripeProductOutputDto|undefined> {
