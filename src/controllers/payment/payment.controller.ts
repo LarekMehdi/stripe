@@ -1,12 +1,26 @@
-import { Controller, Param, ParseIntPipe, Post } from "@nestjs/common";
+import { Body, Controller, Get, Param, ParseIntPipe, Post } from "@nestjs/common";
 import { PaymentCheckoutUseCase } from "src/application/use-cases/payment/checkout.usecase";
+import { ExtendedCheckoutSessionInputDto } from "src/shared/dtos/stripe/checkout/checkout-session-input.dto";
 
 @Controller('payment')
 export class PaymentController {
     constructor(private readonly checkoutUC: PaymentCheckoutUseCase) {}
 
     @Post(':productId/checkout')
-    checkout(@Param('productId', ParseIntPipe) productId: number) {
-        return this.checkoutUC.execute(productId);
+    async checkout(@Param('productId', ParseIntPipe) productId: number, @Body() checkoutData: ExtendedCheckoutSessionInputDto) {
+        return await this.checkoutUC.execute(checkoutData, productId);
     }
+
+
+
+    @Get('success')
+    success(): string {
+        return 'success';
+    }
+
+    @Get('cancel')
+    cancel(): string {
+        return 'operation cancelled';
+    }
+
 }

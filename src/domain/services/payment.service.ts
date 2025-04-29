@@ -1,4 +1,6 @@
+import { ExtendedCheckoutSessionInputDto } from "src/shared/dtos/stripe/checkout/checkout-session-input.dto";
+
 export abstract class PaymentService {
     
-    abstract checkout(): Promise<any>
+    abstract checkout(data: ExtendedCheckoutSessionInputDto): Promise<any>
 }
