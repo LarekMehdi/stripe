@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException, PreconditionFailedException } from "@nestjs/common";
+import { Injectable, NotFoundException } from "@nestjs/common";
 import { Price } from "src/domain/entities/price/price.entity";
 import { PriceRepository } from "src/domain/repositories/price.repository";
 import { PaymentService } from "src/domain/services/payment.service";

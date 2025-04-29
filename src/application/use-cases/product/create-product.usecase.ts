@@ -15,7 +15,6 @@ export class CreateProductUseCase {
     ) {}
 
     async execute(data: CreateProductWithPriceInputDto): Promise<ProductOutputDto> {
-
         // création du Product dans Stripe
         const product = await this.paymentService.createProduct(data);
         if (!product || !product.id) throw new ServiceUnavailableException(`Something went wrong with Stripe API [create product]`);

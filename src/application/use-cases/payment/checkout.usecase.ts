@@ -18,16 +18,13 @@ export class PaymentCheckoutUseCase {
         const product: Product | null = await this.productRepository.findById(productId);
 
         if (!product) throw new NotFoundException(`No product found for id ${productId}`);
-        if (product.quantity <= 0) throw new PreconditionFailedException(`Product ${product.name} is out of order`);
+        if (product.quantity - data.quantity <= 0) throw new PreconditionFailedException(`Not enought stock for ${product.name}, [stock: ${product.quantity}, requested: ${data.quantity}]`);
         if (!product.externalPriceId) throw new PreconditionFailedException(`No priceId found for product id ${productId}`);
 
         const checkoutData: ExtendedCheckoutSessionInputDto = this.__getExtendedInput(product, data);
-
-        console.log(checkoutData);
-        const checkoutResponse = await this.paymentService.checkout(checkoutData);
-        console.log('avant => ', product.quantity);
-        product.quantity --;
-        console.log('apres => ', product.quantity);
+        await this.paymentService.checkout(checkoutData);
+        product.quantity = product.quantity - data.quantity;
+    
         return await this.productRepository.update(product, productId);
     }
 
