@@ -15,4 +15,8 @@ export class CreateProductInputDto {
     @IsOptional()
     @IsString()
     priceId: string | null;
+
+    @IsOptional()
+    @IsString()
+    productId: string | null;
 }

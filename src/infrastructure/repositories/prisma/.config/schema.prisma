@@ -32,5 +32,6 @@ model Product {
   id          Int    @id @default(autoincrement())
   name        String @unique
   priceId     String?
+  productId   String?
   quantity    Int
 }

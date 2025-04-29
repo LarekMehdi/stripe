@@ -3,4 +3,5 @@ export class ProductOutputDto {
     name: string;
     quantity: number;
     priceId: string | null;
+    productId: string | null;
 }
