@@ -16,7 +16,6 @@ import { ProductPrismaAdapter } from './infrastructure/repositories/prisma/produ
 import { PricePrismaAdapter } from './infrastructure/repositories/prisma/price/price-prisma.adapter';
 
 // Controllers
-import { AuthController } from './controllers/auth/auth.controller';
 import { PaymentController } from './controllers/payment/payment.controller';
 import { ProductController } from './controllers/product/product.controller';
 import { PriceController } from './controllers/price/price.controller';
@@ -24,9 +23,6 @@ import { PriceController } from './controllers/price/price.controller';
 // Services
 import { StripeService } from './infrastructure/services/payment/stripe-payment.service';
 import { PaymentService } from './domain/services/payment.service';
-
-
-
 
 
 
@@ -38,7 +34,6 @@ import { PaymentService } from './domain/services/payment.service';
   ],
   controllers: [
     // Controllers (entry points – e.g., HTTP)
-    AuthController,
     PaymentController,
     ProductController,
     PriceController,
