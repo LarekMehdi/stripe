@@ -5,4 +5,5 @@ export abstract class ProductRepository {
 
     abstract findById(id: number): Promise<Product|null>
     abstract create(data: CreateProductInputDto): Promise<Product>
+    abstract update(data: Partial<CreateProductInputDto>, id: number): Promise<Product>
 }

@@ -7,6 +7,8 @@ import { PrismaService } from "../.config/prisma.service";
 @Injectable()
 export class ProductPrismaAdapter implements ProductRepository {
     constructor(private readonly prismaService: PrismaService) {}
+  
+    /** FIND **/
 
     async findById(id: number): Promise<Product | null> {
         return await this.prismaService.product.findUnique({
@@ -16,10 +18,23 @@ export class ProductPrismaAdapter implements ProductRepository {
         });
     }
 
+    /** CREATE **/
+
     async create(data: CreateProductInputDto): Promise<Product> {
         return await this.prismaService.product.create({
             data
         });
+    }
+
+    /** UPDATE **/
+
+    async update(data: Partial<CreateProductInputDto>, id: number): Promise<Product> {
+        return await this.prismaService.product.update({
+            data,
+            where: {
+                id
+            }
+        })
     }
 
 }
