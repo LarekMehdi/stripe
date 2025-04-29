@@ -15,7 +15,7 @@ export class CreateProductUseCase {
         const product = await this.paymentService.createProduct(data);
         if (!product || !product.id) throw new ServiceUnavailableException(`Something went wrong with Stripe API`);
 
-        data.productId = product.id;
+        data.externalProductId = product.id;
         return await this.productRepository.create(data);
     }
 }

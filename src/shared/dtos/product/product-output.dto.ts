@@ -2,6 +2,6 @@ export class ProductOutputDto {
     id: number;
     name: string;
     quantity: number;
-    priceId: string | null;
-    productId: string | null;
+    externalPriceId: string | null;
+    externalProductId: string | null;
 }

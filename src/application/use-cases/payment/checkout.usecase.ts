@@ -15,7 +15,7 @@ export class PaymentCheckoutUseCase {
 
         if (!product) throw new NotFoundException(`No product found for id ${productId}`);
         if (product.quantity <= 0) throw new PreconditionFailedException(`Product ${product.name} is out of order`);
-        if (!product.priceId) throw new PreconditionFailedException(`No priceId found for product id ${productId}`);
+        if (!product.externalPriceId) throw new PreconditionFailedException(`No priceId found for product id ${productId}`);
 
         return await this.paymentService.checkout(checkoutData);
 

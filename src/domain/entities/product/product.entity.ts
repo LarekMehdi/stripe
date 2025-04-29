@@ -1,7 +1,7 @@
 export interface Product {
     id: number;
     name: string;
-    priceId: string | null;
-    productId: string | null;
+    externalPriceId: string | null;
+    externalProductId: string | null;
     quantity: number;
 }

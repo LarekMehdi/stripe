@@ -29,9 +29,20 @@ model Customer {
 }
 
 model Product {
-  id          Int    @id @default(autoincrement())
-  name        String @unique
-  priceId     String?
-  productId   String?
-  quantity    Int
+  id                  Int    @id @default(autoincrement())
+  name                String @unique
+  externalPriceId     String?
+  externalProductId   String?
+  quantity            Int
+  priceIds            Price[]
+}
+
+model Price {
+  id                  Int    @id @default(autoincrement())
+  currency            String
+  amount              Int
+  externalPriceId     String?
+  externalProductId   String?
+  productId           Int
+  product             Product @relation(fields: [productId], references: [id])
 }
