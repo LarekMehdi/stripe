@@ -7,7 +7,7 @@ import { PrismaService } from "../.config/prisma.service";
 @Injectable()
 export class ProductPrismaAdapter implements ProductRepository {
     constructor(private readonly prismaService: PrismaService) {}
-  
+ 
     /** FIND **/
 
     async findById(id: number): Promise<Product | null> {
@@ -17,6 +17,19 @@ export class ProductPrismaAdapter implements ProductRepository {
             }
         });
     }
+
+    /** FIND ALL **/
+
+    async findByIds(ids: number[]): Promise<Product[]> {
+        return await this.prismaService.product.findMany({
+            where: {
+                id: {
+                    in: ids
+                }
+            }
+        });
+    }
+  
 
     /** CREATE **/
 
@@ -34,7 +47,22 @@ export class ProductPrismaAdapter implements ProductRepository {
             where: {
                 id
             }
-        })
+        });
+    }
+
+    async updateMany(datas: Partial<Product[]>): Promise<Product[]> {
+        return await Promise.all(
+            datas.map(d => (
+                this.prismaService.product.update({
+                    where: {
+                        id: d?.id,
+                    },
+                    data: {
+                        quantity: d?.quantity
+                    }
+                })
+            ))
+        );
     }
 
 }

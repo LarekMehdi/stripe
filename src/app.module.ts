@@ -9,6 +9,7 @@ import { PaymentCheckoutUseCase } from './application/use-cases/payment/checkout
 import { CreateProductUseCase } from './application/use-cases/product/create-product.usecase';
 import { CreatePriceUseCase } from './application/use-cases/price/create-price.usecase';
 import { PriceFindByIdUseCase } from './application/use-cases/price/price-find-by-id.usecase';
+import { PaymentCheckoutMultipleUseCase } from './application/use-cases/payment/checkout-multiple.usecase';
 
 // Infrastructure (Concrete implementation)
 import { PrismaModule } from './infrastructure/repositories/prisma/.config/prisma.module';
@@ -23,7 +24,6 @@ import { PriceController } from './controllers/price/price.controller';
 // Services
 import { StripeService } from './infrastructure/services/payment/stripe-payment.service';
 import { PaymentService } from './domain/services/payment.service';
-
 
 
 @Module({
@@ -42,6 +42,7 @@ import { PaymentService } from './domain/services/payment.service';
   providers: [
     // Use cases (Application layer)
     PaymentCheckoutUseCase,
+    PaymentCheckoutMultipleUseCase,
     CreateProductUseCase,
     CreatePriceUseCase,
     PriceFindByIdUseCase,
