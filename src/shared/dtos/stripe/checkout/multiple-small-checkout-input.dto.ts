@@ -8,6 +8,7 @@ export class MultipleSmallCheckoutInputDto {
     @IsNotEmpty()
     @IsArray()
     @ValidateNested({ each: true })
+    @Type(() => SmallProductInputDto)
     products: SmallProductInputDto[]
 
     @IsEnum(CheckoutSessionMode)

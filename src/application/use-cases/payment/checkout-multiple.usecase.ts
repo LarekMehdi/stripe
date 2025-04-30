@@ -1,4 +1,4 @@
-import { NotFoundException } from "@nestjs/common";
+import { Injectable, NotFoundException } from "@nestjs/common";
 import { Product } from "src/domain/entities/product/product.entity";
 import { ProductRepository } from "src/domain/repositories/product.repository";
 import { PaymentService } from "src/domain/services/payment.service";
@@ -6,6 +6,7 @@ import { ExtendedCheckoutSessionInputDto } from "src/shared/dtos/stripe/checkout
 import { MultipleSmallCheckoutInputDto } from "src/shared/dtos/stripe/checkout/multiple-small-checkout-input.dto";
 import { LineItemInputDto } from "src/shared/dtos/stripe/line-item/line-item-input.dto";
 
+@Injectable()
 export class PaymentCheckoutMultipleUseCase {
     constructor(private readonly productRepository: ProductRepository,
                 private readonly paymentService: PaymentService
