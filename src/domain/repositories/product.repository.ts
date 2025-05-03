@@ -7,5 +7,5 @@ export abstract class ProductRepository {
     abstract findByIds(ids: number[]): Promise<Product[]>
     abstract create(data: CreateProductInputDto): Promise<Product>
     abstract update(data: Partial<CreateProductInputDto>, id: number): Promise<Product>
-    abstract updateMany(datas: Partial<Product[]>): Promise<Product[]>
+    abstract updateMany(datas: Partial<Product>[]): Promise<Product[]>
 }

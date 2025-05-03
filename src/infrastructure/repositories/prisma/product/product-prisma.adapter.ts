@@ -50,7 +50,8 @@ export class ProductPrismaAdapter implements ProductRepository {
         });
     }
 
-    async updateMany(datas: Partial<Product[]>): Promise<Product[]> {
+    async updateMany(datas: Partial<Product>[]): Promise<Product[]> {
+        console.log('updateMany => ', datas);
         return await Promise.all(
             datas.map(d => (
                 this.prismaService.product.update({

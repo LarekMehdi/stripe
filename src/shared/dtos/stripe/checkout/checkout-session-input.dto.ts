@@ -46,6 +46,9 @@ export class ExtendedCheckoutSessionInputDto extends CheckoutSessionInputDto {
     @IsOptional()
     @IsString()
     client_reference_id?: string;
+
+    @IsOptional()
+    metadata?: Record<string, string>
 }
 
 

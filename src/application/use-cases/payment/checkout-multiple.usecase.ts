@@ -2,9 +2,11 @@ import { Injectable, NotFoundException } from "@nestjs/common";
 import { Product } from "src/domain/entities/product/product.entity";
 import { ProductRepository } from "src/domain/repositories/product.repository";
 import { PaymentService } from "src/domain/services/payment.service";
+import { CheckoutProductOutputDto } from "src/shared/dtos/stripe/checkout/checkout-product-output.dto";
 import { ExtendedCheckoutSessionInputDto } from "src/shared/dtos/stripe/checkout/checkout-session-input.dto";
 import { MultipleSmallCheckoutInputDto } from "src/shared/dtos/stripe/checkout/multiple-small-checkout-input.dto";
 import { LineItemInputDto } from "src/shared/dtos/stripe/line-item/line-item-input.dto";
+import { SmallProductInputDto } from "src/shared/dtos/stripe/product/small-product-input.dto";
 
 @Injectable()
 export class PaymentCheckoutMultipleUseCase {
@@ -24,13 +26,13 @@ export class PaymentCheckoutMultipleUseCase {
         const checkoutResponse = await this.paymentService.checkout(datas);
         console.log('response => ', checkoutResponse);
 
-        const updatedProducts: Product[] = this.__getNewQuantity(products, checkoutDatas);
-        return await this.productRepository.updateMany(updatedProducts);
+        return products;
     }
 
     // TODO: à refactoriser
     private __getExtendedInput(products: Product[], checkoutDatas: MultipleSmallCheckoutInputDto): ExtendedCheckoutSessionInputDto {
         const lineItems: LineItemInputDto[] = [];
+
         for (const product of products) {
             const data = checkoutDatas.products.find(p => p.id === product.id);
             const lineItem: LineItemInputDto = {
@@ -44,16 +46,24 @@ export class PaymentCheckoutMultipleUseCase {
             line_items: lineItems,
             mode: checkoutDatas.mode,
             customer_email: checkoutDatas.customer_email,
+            metadata: this.__getCartMetadata(products, checkoutDatas),
         }
 
         return extendedInput;
     }
 
-    private __getNewQuantity(products: Product[], datas: MultipleSmallCheckoutInputDto): Product[] {
+    private __getCartMetadata(products: SmallProductInputDto[], datas: MultipleSmallCheckoutInputDto): Record<string, string> {
+        const cart: CheckoutProductOutputDto[] = [];
+    
         for (const product of products) {
             const data = datas.products.find(p => p.id === product.id);
-            product.quantity = product.quantity - data!.quantity;
+            const cartProduct: CheckoutProductOutputDto = {
+                id: product.id,
+                newQuantity: product.quantity - data!.quantity
+            }
+            cart.push(cartProduct);
         }
-        return products;
+
+        return {cart: JSON.stringify(cart)}
     }
 }

@@ -10,6 +10,7 @@ import { CreateProductUseCase } from './application/use-cases/product/create-pro
 import { CreatePriceUseCase } from './application/use-cases/price/create-price.usecase';
 import { PriceFindByIdUseCase } from './application/use-cases/price/price-find-by-id.usecase';
 import { PaymentCheckoutMultipleUseCase } from './application/use-cases/payment/checkout-multiple.usecase';
+import { PaymentCheckoutResponseUseCase } from './application/use-cases/payment/checkout-response.usecase';
 
 // Infrastructure (Concrete implementation)
 import { PrismaModule } from './infrastructure/repositories/prisma/.config/prisma.module';
@@ -43,6 +44,7 @@ import { PaymentService } from './domain/services/payment.service';
     // Use cases (Application layer)
     PaymentCheckoutUseCase,
     PaymentCheckoutMultipleUseCase,
+    PaymentCheckoutResponseUseCase,
     CreateProductUseCase,
     CreatePriceUseCase,
     PriceFindByIdUseCase,
