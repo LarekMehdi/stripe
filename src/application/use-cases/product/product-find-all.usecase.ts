@@ -32,7 +32,9 @@ export class ProductFindAllUseCase {
                 externalPriceId: product.externalPriceId,
                 externalProductId: product.externalProductId,
                 price: productPrice!.amount,
-                type: productPrice!.type
+                type: productPrice!.type,
+                interval: productPrice!.interval,
+                intervalCount: productPrice!.intervalCount
             }
             dtos.push(dto);
         }
