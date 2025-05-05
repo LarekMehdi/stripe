@@ -30,7 +30,7 @@ export class PricePrismaAdapter implements PriceRepository {
     async findAllByIds(ids: number[]): Promise<Price[]> {
         const prismaPrices = await this.prismaService.price.findMany({
             where: {
-                id: {
+                productId: {
                     in: ids
                 }
             }
