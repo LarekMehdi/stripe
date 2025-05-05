@@ -16,7 +16,7 @@ export class PaymentCheckoutMultipleUseCase {
 
     async execute(checkoutDatas: MultipleSmallCheckoutInputDto) {
         const productIds: number[] = checkoutDatas.products.map(p => p.id);
-        const products: Product[] = await this.productRepository.findByIds(productIds);
+        const products: Product[] = await this.productRepository.findAllByIds(productIds);
 
         if (products.length === 0) throw new NotFoundException(`No product found for ids ${productIds}`);
 

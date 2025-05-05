@@ -1,5 +1,9 @@
 import Stripe from "stripe";
 import { StripePriceOutputDto } from "../dtos/stripe/price/stripe-price-output.dto";
+import { Price as DomainPrice} from "src/domain/entities/price/price.entity";
+import { Price as PrismaPrice} from "@prisma/client";
+import { Currency } from "../constantes/currency.enum";
+
 
 export abstract class PriceMapper {
 
@@ -13,5 +17,22 @@ export abstract class PriceMapper {
             billing_scheme: data.billing_scheme
         }
         return price;
+    }
+
+    static mapPrismaPricesToDomainPrices(prismaPrices: PrismaPrice[]): DomainPrice[] {
+        const domainPrices: DomainPrice[] = [];
+        
+        for (const price of prismaPrices) {
+            const domainPrice: DomainPrice = {
+                id: price.id,
+                amount: price.amount,
+                currency: price.currency as Currency,
+                productId: price.productId,
+                externalProductId: price.externalProductId,
+                externalPriceId: price.externalPriceId
+            }
+            domainPrices.push(domainPrice);
+        }
+        return domainPrices;
     }
 }

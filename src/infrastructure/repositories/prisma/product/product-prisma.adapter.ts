@@ -20,7 +20,13 @@ export class ProductPrismaAdapter implements ProductRepository {
 
     /** FIND ALL **/
 
-    async findByIds(ids: number[]): Promise<Product[]> {
+    async findAll(): Promise<Product[]> {
+        return await this.prismaService.product.findMany({
+
+        });
+    }
+
+    async findAllByIds(ids: number[]): Promise<Product[]> {
         return await this.prismaService.product.findMany({
             where: {
                 id: {
