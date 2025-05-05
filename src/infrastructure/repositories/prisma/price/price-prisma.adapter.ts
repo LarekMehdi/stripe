@@ -5,6 +5,8 @@ import { PrismaService } from "../.config/prisma.service";
 import { Currency } from "src/shared/constantes/currency.enum";
 import { Injectable } from "@nestjs/common";
 import { PriceMapper } from "src/shared/mappers/price.mapper";
+import { PriceType, RecurringInterval } from "src/shared/constantes/subscription.enum";
+
 
 @Injectable()
 export class PricePrismaAdapter implements PriceRepository {
@@ -21,7 +23,10 @@ export class PricePrismaAdapter implements PriceRepository {
         if (!prismaPrice) return null;
         return {
             ...prismaPrice,
-            currency: prismaPrice.currency as Currency
+            currency: prismaPrice.currency as Currency,
+            type: prismaPrice.type as PriceType,
+            interval: prismaPrice.interval as RecurringInterval,
+            intervalCount: prismaPrice.intervalCount || undefined
         }
     }
 
@@ -47,7 +52,10 @@ export class PricePrismaAdapter implements PriceRepository {
         });
         return {
             ...prismaPrice,
-            currency: prismaPrice.currency as Currency
+            currency: prismaPrice.currency as Currency,
+            type: prismaPrice.type as PriceType,
+            interval: prismaPrice.interval as RecurringInterval,
+            intervalCount: prismaPrice.intervalCount || undefined
         }
     }
     

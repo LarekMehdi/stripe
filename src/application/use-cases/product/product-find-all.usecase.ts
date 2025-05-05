@@ -31,7 +31,8 @@ export class ProductFindAllUseCase {
                 quantity: product.quantity,
                 externalPriceId: product.externalPriceId,
                 externalProductId: product.externalProductId,
-                price: productPrice?.amount
+                price: productPrice!.amount,
+                type: productPrice!.type
             }
             dtos.push(dto);
         }

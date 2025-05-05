@@ -3,6 +3,7 @@ import { StripePriceOutputDto } from "../dtos/stripe/price/stripe-price-output.d
 import { Price as DomainPrice} from "src/domain/entities/price/price.entity";
 import { Price as PrismaPrice} from "@prisma/client";
 import { Currency } from "../constantes/currency.enum";
+import { PriceType, RecurringInterval } from "../constantes/subscription.enum";
 
 
 export abstract class PriceMapper {
@@ -29,7 +30,10 @@ export abstract class PriceMapper {
                 currency: price.currency as Currency,
                 productId: price.productId,
                 externalProductId: price.externalProductId,
-                externalPriceId: price.externalPriceId
+                externalPriceId: price.externalPriceId,
+                type: price.type as PriceType,
+                interval: price.interval as RecurringInterval,
+                intervalCount: price.intervalCount || undefined
             }
             domainPrices.push(domainPrice);
         }

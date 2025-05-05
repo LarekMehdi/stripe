@@ -1,4 +1,5 @@
 import { Injectable, ServiceUnavailableException } from "@nestjs/common";
+import { Product } from "src/domain/entities/product/product.entity";
 import { PriceRepository } from "src/domain/repositories/price.repository";
 import { ProductRepository } from "src/domain/repositories/product.repository";
 import { PaymentService } from "src/domain/services/payment.service";
@@ -6,6 +7,7 @@ import { CreatePriceInputDto } from "src/shared/dtos/price/create-price-input.dt
 import { CreateProductInputDto } from "src/shared/dtos/product/create-product-input.dto";
 import { CreateProductWithPriceInputDto } from "src/shared/dtos/product/create-product-with-price-input.dto";
 import { ProductOutputDto } from "src/shared/dtos/product/product-output.dto";
+import { ProductMapper } from "src/shared/mappers/product.mapper";
 
 @Injectable()
 export class CreateProductUseCase {
@@ -37,10 +39,12 @@ export class CreateProductUseCase {
 
         // création du Price en base
         priceData.amount = (priceData.amount / 100);
-        await this.priceRepository.create(priceData);
+        const prismaPrice = await this.priceRepository.create(priceData);
 
         // maj du Product en base avec le priceId
-        return await this.productRepository.update(productData, createdProduct.id);
+        const prismaProduct: Product = await this.productRepository.update(productData, createdProduct.id);
+
+        return ProductMapper.mapProductToProductOutput(prismaProduct, prismaPrice);
   
     }
 
@@ -52,7 +56,10 @@ export class CreateProductUseCase {
             currency: data.currency,
             productId: productId,
             externalProductId: data.externalProductId!,
-            externalPriceId: null
+            externalPriceId: null,
+            type: data.type,
+            interval: data.interval,
+            intervalCount: data.intervalCount
         }
         return priceInput;
     }
