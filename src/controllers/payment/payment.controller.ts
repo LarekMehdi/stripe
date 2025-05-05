@@ -13,6 +13,8 @@ export class PaymentController {
                 private readonly checkoutResponseUC: PaymentCheckoutResponseUseCase,
     ) {}
 
+    /** CHECKOUT **/
+    
     @Post(':productId/checkout')
     async checkout(@Param('productId', ParseIntPipe) productId: number, @Body() checkoutData: SmallCheckoutInputDto) {
         return await this.checkoutUC.execute(checkoutData, productId);

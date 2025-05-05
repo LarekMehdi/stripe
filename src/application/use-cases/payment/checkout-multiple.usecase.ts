@@ -24,9 +24,11 @@ export class PaymentCheckoutMultipleUseCase {
 
         const datas: ExtendedCheckoutSessionInputDto = this.__getExtendedInput(products, checkoutDatas);
         const checkoutResponse = await this.paymentService.checkout(datas);
-        console.log('response => ', checkoutResponse);
+        
+        //console.log('response => ', checkoutResponse);
+        console.log(products);
 
-        return products;
+        return checkoutResponse;
     }
 
     // TODO: à refactoriser
