@@ -3,6 +3,7 @@ import { Module } from '@nestjs/common';
 // Domain
 import { ProductRepository } from './domain/repositories/product.repository';
 import { PriceRepository } from './domain/repositories/price.repository';
+import { CustomerRepository } from './domain/repositories/customer.repository';
 
 // Application (Use cases)
 import { PaymentCheckoutUseCase } from './application/use-cases/payment/checkout.usecase';
@@ -11,11 +12,14 @@ import { CreatePriceUseCase } from './application/use-cases/price/create-price.u
 import { PriceFindByIdUseCase } from './application/use-cases/price/price-find-by-id.usecase';
 import { PaymentCheckoutMultipleUseCase } from './application/use-cases/payment/checkout-multiple.usecase';
 import { PaymentCheckoutResponseUseCase } from './application/use-cases/payment/checkout-response.usecase';
+import { CreateCustomerUseCase } from './application/use-cases/customer/create-customer.usecase';
+import { CustomerFindByIdUseCase } from './application/use-cases/customer/customer-find-by-id.usecase';
 
 // Infrastructure (Concrete implementation)
 import { PrismaModule } from './infrastructure/repositories/prisma/.config/prisma.module';
 import { ProductPrismaAdapter } from './infrastructure/repositories/prisma/product/product-prisma.adapter';
 import { PricePrismaAdapter } from './infrastructure/repositories/prisma/price/price-prisma.adapter';
+import { CustomerPrismaAdapter } from './infrastructure/repositories/prisma/customer/customer-prisma.adapter';
 
 // Controllers
 import { PaymentController } from './controllers/payment/payment.controller';
@@ -48,6 +52,8 @@ import { PaymentService } from './domain/services/payment.service';
     CreateProductUseCase,
     CreatePriceUseCase,
     PriceFindByIdUseCase,
+    CreateCustomerUseCase,
+    CustomerFindByIdUseCase,
 
     // Concrete implementations (Infrastructure layer)
     ProductPrismaAdapter,
@@ -61,6 +67,10 @@ import { PaymentService } from './domain/services/payment.service';
     {
       provide: PriceRepository,
       useClass: PricePrismaAdapter,
+    },
+    {
+      provide: CustomerRepository,
+      useClass: CustomerPrismaAdapter,
     },
     {
       provide: PaymentService,

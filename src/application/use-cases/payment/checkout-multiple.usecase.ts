@@ -55,6 +55,7 @@ export class PaymentCheckoutMultipleUseCase {
     private __getCartMetadata(products: SmallProductInputDto[], datas: MultipleSmallCheckoutInputDto): Record<string, string> {
         const cart: CheckoutProductOutputDto[] = [];
     
+        // pour achat en meme temps? Décrémenter plutot que de sauvegarder la quantité finale
         for (const product of products) {
             const data = datas.products.find(p => p.id === product.id);
             const cartProduct: CheckoutProductOutputDto = {
