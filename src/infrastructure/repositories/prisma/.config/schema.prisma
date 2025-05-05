@@ -20,6 +20,8 @@ model Customer {
   name        String 
   email       String @unique
   externalId  String? @unique
+
+  Subscription Subscription[]
 }
 
 model Product {
@@ -28,6 +30,7 @@ model Product {
   externalPriceId     String?
   externalProductId   String?
   quantity            Int
+
   priceIds            Price[]
 }
 
@@ -39,4 +42,47 @@ model Price {
   externalProductId   String?
   productId           Int
   product             Product @relation(fields: [productId], references: [id])
+  type                PriceType @default(one_time)
+  interval            RecurringInterval?
+  intervalCount       Int?
+
+  Subscription        Subscription[]
+}
+
+model Subscription {
+  id                Int       @id @default(autoincrement())
+  externalId        String    @unique 
+  status            SubscriptionStatus
+  startDate         DateTime
+  currentPeriodEnd  DateTime
+  cancelAt          DateTime?
+  cancelAtPeriodEnd Boolean @default(false)
+  canceledAt        DateTime?
+  customerId        Int
+  customer          Customer  @relation(fields: [customerId], references: [id])
+  priceId           Int
+  price             Price     @relation(fields: [priceId], references: [id])
+}
+
+enum PriceType {
+  one_time
+  recurring
+}
+
+enum RecurringInterval {
+  day
+  week
+  month
+  year
+}
+
+enum SubscriptionStatus {
+  incomplete
+  incomplete_expired
+  trialing
+  active
+  past_due
+  canceled
+  unpaid
+  paused
 }
