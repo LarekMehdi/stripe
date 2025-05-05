@@ -25,6 +25,7 @@ import { CustomerPrismaAdapter } from './infrastructure/repositories/prisma/cust
 import { PaymentController } from './controllers/payment/payment.controller';
 import { ProductController } from './controllers/product/product.controller';
 import { PriceController } from './controllers/price/price.controller';
+import { CustomerController } from './controllers/customer/customer.controller';
 
 // Services
 import { StripeService } from './infrastructure/services/payment/stripe-payment.service';
@@ -42,7 +43,7 @@ import { PaymentService } from './domain/services/payment.service';
     PaymentController,
     ProductController,
     PriceController,
-
+    CustomerController,
   ],
   providers: [
     // Use cases (Application layer)
