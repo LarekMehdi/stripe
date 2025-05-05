@@ -1,4 +1,4 @@
-import { IsEmail, IsNotEmpty, IsString } from "class-validator";
+import { IsEmail, IsNotEmpty, IsOptional, IsString } from "class-validator";
 
 export class CreateCustomerInputDto {
 
@@ -9,4 +9,8 @@ export class CreateCustomerInputDto {
     @IsNotEmpty()
     @IsEmail()
     email: string;
+
+    @IsOptional()
+    @IsString()
+    externalId: string | null;
 }
