@@ -58,7 +58,7 @@ export class StripeService implements PaymentService {
         const createdCustomer: Stripe.Response<Stripe.Customer> | undefined = await this.stripe?.customers.create({
             ...createData
         });
-        
+
         if (!createdCustomer) return;
         return CustomerMapper.mapCustomerResponseToCustomerOutput(createdCustomer);
         
@@ -69,8 +69,8 @@ export class StripeService implements PaymentService {
     async checkout(checkoutData: ExtendedCheckoutSessionInputDto): Promise<any> {
         return this.stripe?.checkout.sessions.create({
             ...checkoutData,
-            success_url: 'http://localhost:3000/payment/success',
-            cancel_url: 'http://localhost:3000/payment/cancel',
+            success_url: 'http://localhost:5173/checkout/success',
+            cancel_url: 'http://localhost:5173/checkout/cancel',
         });
     }
 
