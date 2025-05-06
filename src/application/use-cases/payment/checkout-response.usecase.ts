@@ -78,7 +78,6 @@ export class PaymentCheckoutResponseUseCase {
 
     private async __createCustomerIfNeeded(externalId: string): Promise<Customer> {
         const customer: Customer|null = await this.customerRepository.findbyExternalId(externalId);
-
         if (!customer) {
             const stripeCustomer = await this.paymentService.findCustomerByExternalId(externalId);
             const prismaCustomer: CreateCustomerInputDto = {
