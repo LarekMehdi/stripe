@@ -23,6 +23,7 @@ export class PaymentCheckoutMultipleUseCase {
         // check for productWithoutStock
 
         const datas: ExtendedCheckoutSessionInputDto = this.__getExtendedInput(products, checkoutDatas);
+        console.log('datas => ', datas);
         const checkoutResponse = await this.paymentService.checkout(datas);
         
         //console.log('response => ', checkoutResponse);

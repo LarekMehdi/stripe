@@ -10,8 +10,8 @@ export class PaymentCheckoutResponseUseCase {
     async execute(response: any):  Promise<Product[]|null> {
         switch (response.type) {
             case 'checkout.session.completed':
+                console.log('response webhook => ', response);
                 const cart: CheckoutProductOutputDto[] = JSON.parse(response.data.object.metadata.cart);
-                console.log('updated => ', cart);
 
                 const products: Partial<Product>[] = this.__mapDtoToProducts(cart);
                 return await this.productRepository.updateMany(products);

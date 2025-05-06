@@ -2,6 +2,7 @@ import { Injectable, NotFoundException } from "@nestjs/common";
 import { Price } from "src/domain/entities/price/price.entity";
 import { PriceRepository } from "src/domain/repositories/price.repository";
 import { PaymentService } from "src/domain/services/payment.service";
+import { PriceType } from "src/shared/constantes/subscription.enum";
 import { PriceOutputDto } from "src/shared/dtos/price/price-output.dto";
 import { StripePriceOutputDto } from "src/shared/dtos/stripe/price/stripe-price-output.dto";
 
@@ -26,7 +27,8 @@ export class PriceFindByIdUseCase {
             id: domainPrice.id,
             externalId: externalPrice.id,
             amount: domainPrice.amount,
-            externalAmount: externalPrice.unit_amount
+            externalAmount: externalPrice.unit_amount,
+            type: externalPrice.type as PriceType
         }
         return outputPrice;
     }
