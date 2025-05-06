@@ -16,6 +16,7 @@ import { PaymentCheckoutResponseUseCase } from './application/use-cases/payment/
 import { CreateCustomerUseCase } from './application/use-cases/customer/create-customer.usecase';
 import { CustomerFindByIdUseCase } from './application/use-cases/customer/customer-find-by-id.usecase';
 import { ProductFindAllUseCase } from './application/use-cases/product/product-find-all.usecase';
+import { SubscriptionCancelUseCase } from './application/use-cases/subscription/subscription-cancel.usecase';
 
 // Infrastructure (Concrete implementation)
 import { PrismaModule } from './infrastructure/repositories/prisma/.config/prisma.module';
@@ -29,6 +30,7 @@ import { PaymentController } from './controllers/payment/payment.controller';
 import { ProductController } from './controllers/product/product.controller';
 import { PriceController } from './controllers/price/price.controller';
 import { CustomerController } from './controllers/customer/customer.controller';
+import { SubscriptionController } from './controllers/subscription/subscription.controller';
 
 // Services
 import { StripeService } from './infrastructure/services/payment/stripe-payment.service';
@@ -47,6 +49,7 @@ import { PaymentService } from './domain/services/payment.service';
     ProductController,
     PriceController,
     CustomerController,
+    SubscriptionController,
   ],
   providers: [
     // Use cases (Application layer)
@@ -59,6 +62,7 @@ import { PaymentService } from './domain/services/payment.service';
     PriceFindByIdUseCase,
     CreateCustomerUseCase,
     CustomerFindByIdUseCase,
+    SubscriptionCancelUseCase,
 
     // Concrete implementations (Infrastructure layer)
     ProductPrismaAdapter,

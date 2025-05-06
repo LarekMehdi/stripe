@@ -8,10 +8,8 @@ import { ExtendedCheckoutSessionInputDto } from "src/shared/dtos/stripe/checkout
 import { StripeCustomerOutputDto } from "src/shared/dtos/stripe/customer/stripe-customer-output.dto";
 import { CreateStripePriceInputDto } from "src/shared/dtos/stripe/price/create-stripe-price-input.dto";
 import { StripePriceOutputDto } from "src/shared/dtos/stripe/price/stripe-price-output.dto";
-import { StripeRecurringInputDto } from "src/shared/dtos/stripe/price/stripe-recurring-input.dto";
 import { CreateStripeProductInputDto } from "src/shared/dtos/stripe/product/create-stripe-product-input.dto";
 import { StripeProductOutputDto } from "src/shared/dtos/stripe/product/stripe-product-output.dto";
-import { StripeSubscriptionOutputDto } from "src/shared/dtos/stripe/subscription/stripe-subscription-output.dto";
 import { CustomerMapper } from "src/shared/mappers/customer.mapper";
 import { PriceMapper } from "src/shared/mappers/price.mapper";
 import Stripe from "stripe";
@@ -37,9 +35,7 @@ export class StripeService implements PaymentService {
     }
 
     async findSubcriptionByExternalId(externalId: string): Promise<Stripe.Subscription|undefined> {
-        const stripeSubscription = await this.stripe?.subscriptions.retrieve(externalId);
-        console.log('stripeSub => ', stripeSubscription);
-        return stripeSubscription;
+       return await this.stripe?.subscriptions.retrieve(externalId);
     }
 
     async findCustomerByExternalId(externalId: string): Promise<any> {
@@ -75,6 +71,12 @@ export class StripeService implements PaymentService {
         if (!createdCustomer) return;
         return CustomerMapper.mapCustomerResponseToCustomerOutput(createdCustomer);
         
+    }
+
+    /** UPDATE **/
+
+    async cancelSubscription(externalId: string): Promise<Stripe.Subscription|undefined> {
+        return await this.stripe?.subscriptions.cancel(externalId);
     }
 
     /** CHECKOUT **/
