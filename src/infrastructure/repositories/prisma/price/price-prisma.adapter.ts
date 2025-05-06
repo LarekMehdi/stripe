@@ -30,6 +30,22 @@ export class PricePrismaAdapter implements PriceRepository {
         }
     }
 
+    async findByExternalId(externalId: string): Promise<Price | null> {
+        const prismaPrice = await this.prismaService.price.findUnique({
+            where: {
+                externalPriceId: externalId
+            }
+        });
+        if (!prismaPrice) return null;
+        return {
+            ...prismaPrice,
+            currency: prismaPrice.currency as Currency,
+            type: prismaPrice.type as PriceType,
+            interval: prismaPrice.interval as RecurringInterval,
+            intervalCount: prismaPrice.intervalCount || undefined
+        }
+    }
+
     /** FIND ALL **/
 
     async findAllByIds(ids: number[]): Promise<Price[]> {

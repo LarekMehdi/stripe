@@ -4,6 +4,7 @@ import { Module } from '@nestjs/common';
 import { ProductRepository } from './domain/repositories/product.repository';
 import { PriceRepository } from './domain/repositories/price.repository';
 import { CustomerRepository } from './domain/repositories/customer.repository';
+import { SubscriptionRepository } from './domain/repositories/subscription.repository';
 
 // Application (Use cases)
 import { PaymentCheckoutUseCase } from './application/use-cases/payment/checkout.usecase';
@@ -21,6 +22,7 @@ import { PrismaModule } from './infrastructure/repositories/prisma/.config/prism
 import { ProductPrismaAdapter } from './infrastructure/repositories/prisma/product/product-prisma.adapter';
 import { PricePrismaAdapter } from './infrastructure/repositories/prisma/price/price-prisma.adapter';
 import { CustomerPrismaAdapter } from './infrastructure/repositories/prisma/customer/customer-prisma.adapter';
+import { SubscriptionPrismaAdapter } from './infrastructure/repositories/prisma/subscription/subscription-prisma.adapter';
 
 // Controllers
 import { PaymentController } from './controllers/payment/payment.controller';
@@ -74,6 +76,10 @@ import { PaymentService } from './domain/services/payment.service';
     {
       provide: CustomerRepository,
       useClass: CustomerPrismaAdapter,
+    },
+    {
+      provide: SubscriptionRepository,
+      useClass: SubscriptionPrismaAdapter,
     },
     {
       provide: PaymentService,

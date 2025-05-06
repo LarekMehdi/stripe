@@ -54,7 +54,6 @@ model Subscription {
   externalId        String    @unique 
   status            SubscriptionStatus
   startDate         DateTime
-  currentPeriodEnd  DateTime
   cancelAt          DateTime?
   cancelAtPeriodEnd Boolean @default(false)
   canceledAt        DateTime?

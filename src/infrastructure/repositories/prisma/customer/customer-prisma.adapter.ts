@@ -8,6 +8,8 @@ import { Injectable } from "@nestjs/common";
 export class CustomerPrismaAdapter implements CustomerRepository {
     constructor( private readonly prismaService: PrismaService) {}
 
+    /** FIND **/
+
     async findById(id: number): Promise<Customer | null> {
         return await this.prismaService.customer.findUnique({
             where: {
@@ -15,7 +17,17 @@ export class CustomerPrismaAdapter implements CustomerRepository {
             }
         });
     }
+
+    async findbyExternalId(externalId: string): Promise<Customer | null> {
+        return await this.prismaService.customer.findUnique({
+            where: {
+                externalId
+            }
+        })
+    }
     
+    /** CREATE **/
+
     async create(data: CreateCustomerInputDto): Promise<Customer> {
         return await this.prismaService.customer.create({
             data

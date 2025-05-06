@@ -5,6 +5,8 @@ import { ExtendedCheckoutSessionInputDto } from "src/shared/dtos/stripe/checkout
 import { StripeCustomerOutputDto } from "src/shared/dtos/stripe/customer/stripe-customer-output.dto";
 import { StripePriceOutputDto } from "src/shared/dtos/stripe/price/stripe-price-output.dto";
 import { StripeProductOutputDto } from "src/shared/dtos/stripe/product/stripe-product-output.dto";
+import { StripeSubscriptionOutputDto } from "src/shared/dtos/stripe/subscription/stripe-subscription-output.dto";
+import Stripe from "stripe";
 
 export abstract class PaymentService {
     
@@ -12,6 +14,7 @@ export abstract class PaymentService {
     abstract createPrice(createData: CreatePriceInputDto): Promise<StripePriceOutputDto|undefined>
     abstract checkout(data: ExtendedCheckoutSessionInputDto): Promise<any>
     abstract findPriceById(id: string): Promise<StripePriceOutputDto|undefined>
+    abstract findSubcriptionByExternalId(externalId: string): Promise<Stripe.Subscription|undefined>
 
     abstract createCustomer(createData: CreateCustomerInputDto): Promise<StripeCustomerOutputDto|undefined>
 }

@@ -11,6 +11,7 @@ import { StripePriceOutputDto } from "src/shared/dtos/stripe/price/stripe-price-
 import { StripeRecurringInputDto } from "src/shared/dtos/stripe/price/stripe-recurring-input.dto";
 import { CreateStripeProductInputDto } from "src/shared/dtos/stripe/product/create-stripe-product-input.dto";
 import { StripeProductOutputDto } from "src/shared/dtos/stripe/product/stripe-product-output.dto";
+import { StripeSubscriptionOutputDto } from "src/shared/dtos/stripe/subscription/stripe-subscription-output.dto";
 import { CustomerMapper } from "src/shared/mappers/customer.mapper";
 import { PriceMapper } from "src/shared/mappers/price.mapper";
 import Stripe from "stripe";
@@ -33,6 +34,13 @@ export class StripeService implements PaymentService {
 
         if (!price) return undefined;
         return PriceMapper.mapPriceResponseToPriceOutput(price);
+    }
+
+    // Promise<StripeSubscriptionOutputDto|undefined>
+    async findSubcriptionByExternalId(externalId: string): Promise<Stripe.Subscription|undefined> {
+        const stripeSubscription = await this.stripe?.subscriptions.retrieve(externalId);
+        console.log('stripeSub => ', stripeSubscription);
+        return stripeSubscription;
     }
 
     /** CREATE **/
