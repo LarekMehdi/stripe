@@ -3,9 +3,12 @@ import { SubscriptionCancelUseCase } from "src/application/use-cases/subscriptio
 
 @Controller('subscription')
 export class SubscriptionController {
-    constructor(private readonly subscriptionCancelUC: SubscriptionCancelUseCase) {}
+    constructor(private readonly subscriptionCancelUC: SubscriptionCancelUseCase,
+    ) {}
 
-    @Patch(':id')
+    /** UPDATE **/
+
+    @Patch(':id/cancel')
     async cancelSubscription(@Param('id', ParseIntPipe) id: number) {
         return await this.subscriptionCancelUC.execute(id);
     }

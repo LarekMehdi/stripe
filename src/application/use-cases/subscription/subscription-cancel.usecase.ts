@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException, ServiceUnavailableException } from "@nestjs/common";
-import { Subscription } from "src/domain/entities/subscription.entity";
+import { Subscription } from "src/domain/entities/subscription/subscription.entity";
 import { SubscriptionRepository } from "src/domain/repositories/subscription.repository";
 import { PaymentService } from "src/domain/services/payment.service";
 import { SubscriptionStatus } from "src/shared/constantes/subscription.enum";

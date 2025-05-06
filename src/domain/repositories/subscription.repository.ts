@@ -1,5 +1,5 @@
 import { CreateSubscriptionInputDto } from "src/shared/dtos/stripe/subscription/create-subscription-input.dto";
-import { Subscription } from "../entities/subscription.entity";
+import { Subscription } from "../entities/subscription/subscription.entity";
 
 export abstract class SubscriptionRepository {
 

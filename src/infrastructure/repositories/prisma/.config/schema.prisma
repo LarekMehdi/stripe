@@ -63,6 +63,18 @@ model Subscription {
   price             Price     @relation(fields: [priceId], references: [id])
 }
 
+model Refund {
+  id                Int       @id @default(autoincrement())
+  externalId        String    @unique 
+  externalChargeId  String?
+  paymentIntentId   String?
+  amount            Int
+  currency          String
+  status            RefundStatus
+  reason            RefundReason?
+  createdAt         DateTime
+}
+
 enum PriceType {
   one_time
   recurring
@@ -84,4 +96,17 @@ enum SubscriptionStatus {
   canceled
   unpaid
   paused
+}
+
+enum RefundStatus {
+  open
+  complete
+  expired
+}
+
+enum RefundReason {
+  duplicate
+  fraudulent
+  requested_by_customer
+  expired_uncaptured_charge
 }

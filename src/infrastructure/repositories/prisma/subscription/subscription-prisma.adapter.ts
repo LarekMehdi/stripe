@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { Subscription as DomainSubscription } from "src/domain/entities/subscription.entity";
+import { Subscription as DomainSubscription } from "src/domain/entities/subscription/subscription.entity";
 import { SubscriptionRepository } from "src/domain/repositories/subscription.repository";
 import { CreateSubscriptionInputDto } from "src/shared/dtos/stripe/subscription/create-subscription-input.dto";
 import { PrismaService } from "../.config/prisma.service";

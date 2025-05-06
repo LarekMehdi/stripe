@@ -1,8 +1,9 @@
-import { Body, Controller, Get, Param, ParseIntPipe, Post, Req } from "@nestjs/common";
+import { Body, Controller, Get, Param, ParseIntPipe, Patch, Post, Req } from "@nestjs/common";
 import { Request } from "express";
 import { PaymentCheckoutMultipleUseCase } from "src/application/use-cases/payment/checkout-multiple.usecase";
 import { PaymentCheckoutResponseUseCase } from "src/application/use-cases/payment/checkout-response.usecase";
 import { PaymentCheckoutUseCase } from "src/application/use-cases/payment/checkout.usecase";
+import { PaymentRefundUseCase } from "src/application/use-cases/payment/payment-refund.usecase";
 import { MultipleSmallCheckoutInputDto } from "src/shared/dtos/stripe/checkout/multiple-small-checkout-input.dto";
 import { SmallCheckoutInputDto } from "src/shared/dtos/stripe/checkout/small-checkout-input.dto";
 
@@ -11,7 +12,15 @@ export class PaymentController {
     constructor(private readonly checkoutUC: PaymentCheckoutUseCase,
                 private readonly checkoutMultipleUC: PaymentCheckoutMultipleUseCase,
                 private readonly checkoutResponseUC: PaymentCheckoutResponseUseCase,
+                private readonly paymentRefundUC: PaymentRefundUseCase,
     ) {}
+
+    /** UPDATE **/
+
+    @Patch(':id/refund')
+    async refundPayment(@Param('id', ParseIntPipe) id: number) {
+        return await this.paymentRefundUC.execute(id);
+    }
 
     /** CHECKOUT **/
     

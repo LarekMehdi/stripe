@@ -17,6 +17,7 @@ import { CreateCustomerUseCase } from './application/use-cases/customer/create-c
 import { CustomerFindByIdUseCase } from './application/use-cases/customer/customer-find-by-id.usecase';
 import { ProductFindAllUseCase } from './application/use-cases/product/product-find-all.usecase';
 import { SubscriptionCancelUseCase } from './application/use-cases/subscription/subscription-cancel.usecase';
+import { PaymentRefundUseCase } from './application/use-cases/payment/payment-refund.usecase';
 
 // Infrastructure (Concrete implementation)
 import { PrismaModule } from './infrastructure/repositories/prisma/.config/prisma.module';
@@ -35,6 +36,7 @@ import { SubscriptionController } from './controllers/subscription/subscription.
 // Services
 import { StripeService } from './infrastructure/services/payment/stripe-payment.service';
 import { PaymentService } from './domain/services/payment.service';
+
 
 
 @Module({
@@ -56,6 +58,7 @@ import { PaymentService } from './domain/services/payment.service';
     PaymentCheckoutUseCase,
     PaymentCheckoutMultipleUseCase,
     PaymentCheckoutResponseUseCase,
+    PaymentRefundUseCase,
     CreateProductUseCase,
     ProductFindAllUseCase,
     CreatePriceUseCase,
