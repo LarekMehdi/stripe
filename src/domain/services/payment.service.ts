@@ -15,6 +15,7 @@ export abstract class PaymentService {
     abstract checkout(data: ExtendedCheckoutSessionInputDto): Promise<any>
     abstract findPriceById(id: string): Promise<StripePriceOutputDto|undefined>
     abstract findSubcriptionByExternalId(externalId: string): Promise<Stripe.Subscription|undefined>
+    abstract findCustomerByExternalId(externalId: string): Promise<any>
 
     abstract createCustomer(createData: CreateCustomerInputDto): Promise<StripeCustomerOutputDto|undefined>
 }

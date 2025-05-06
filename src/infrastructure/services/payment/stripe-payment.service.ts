@@ -36,11 +36,14 @@ export class StripeService implements PaymentService {
         return PriceMapper.mapPriceResponseToPriceOutput(price);
     }
 
-    // Promise<StripeSubscriptionOutputDto|undefined>
     async findSubcriptionByExternalId(externalId: string): Promise<Stripe.Subscription|undefined> {
         const stripeSubscription = await this.stripe?.subscriptions.retrieve(externalId);
         console.log('stripeSub => ', stripeSubscription);
         return stripeSubscription;
+    }
+
+    async findCustomerByExternalId(externalId: string): Promise<any> {
+        return await this.stripe?.customers.retrieve(externalId);
     }
 
     /** CREATE **/
